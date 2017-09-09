@@ -25,11 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>vert = 0; //vertical Speed
-hori = 0; //Horizontal Speed
+            <string>vert = 0;
+hori = 0;
 
-grav = 1; //Gravity Speed
-//moveSpeed = 0;
+maxVertical = 10;
+
+grav = -0.3;
 </string>
           </argument>
         </arguments>
@@ -52,10 +53,20 @@ grav = 1; //Gravity Speed
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(vert &lt; 10)
+            <string>if(vert &lt; maxVertical)
     vert += grav;
+    
+if(!place_free(x,y + vert / abs(vert)))
+{
+    while(!place_free(x,y))
+    {
+        y -= vert / abs(vert);
+    }
+    
+    vert = 0;
+}
 
-y += vert;
+x += hori; y += vert;
 </string>
           </argument>
         </arguments>
